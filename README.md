@@ -1,56 +1,71 @@
-# Welcome to your Expo app 👋
+# Lanka Trails
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Name:** L A P Prabodhitha
+**Student ID:** PS/2022/199
 
-## Get started
+## Demo video
+https://drive.google.com/file/d/1IgP9AK6oMGazIKVml3laAuvr-tPqi3Zm/view?usp=share_link
 
-1. Install dependencies
+## About the app
+Lanka Trails is a mobile app for discovering hiking trails in Sri Lanka.
+Trail information is usually scattered across blogs and social media. This app
+puts distance, duration, difficulty, elevation and best season for each trail
+in one place, lets users filter by difficulty, and lets them save favorites.
 
-   ```bash
-   npm install
-   ```
+## Screens (4)
+| Screen | File | Purpose |
+|---|---|---|
+| Home | `src/app/(tabs)/index.js` | Welcome screen with trail and favorites counts |
+| Explore | `src/app/(tabs)/explore/index.js` | List of all trails with a difficulty filter |
+| Trail Detail | `src/app/(tabs)/explore/[id].js` | Full details, favorite button, reminder button |
+| Favorites | `src/app/(tabs)/favorites.js` | Trails the user saved |
 
-2. Start the app
+## Core React Native components used
+| Component | Where |
+|---|---|
+| View, Text, Image, Pressable | `src/components/TrailCard.js`, all screens |
+| FlatList | `src/app/(tabs)/explore/index.js`, `src/app/(tabs)/favorites.js` |
+| Modal | `src/components/FilterModal.js` (used in Explore to filter by difficulty) |
+| ScrollView | `src/app/(tabs)/explore/[id].js` |
 
-   ```bash
-   npx expo start
-   ```
+## Expo Router structure
+src/app/(tabs)/index.js
+src/app/(tabs)/explore/[id].js
+src/app/(tabs)/explore/index.js
+src/app/(tabs)/explore/_layout.js
+src/app/(tabs)/_layout.js
+src/app/(tabs)/favorites.js
+src/app/_layout.js
 
-In the output, you'll find options to open the app in a
+- `_layout.js` (root): wraps the app in `FavoritesProvider`, sets up notifications and the AppState listener
+- `(tabs)/_layout.js`: tab navigation (Home, Explore, Favorites)
+- `(tabs)/explore/_layout.js`: nested Stack for the list and detail screens
+- `(tabs)/explore/[id].js`: dynamic route for a single trail
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## State management
+Favorites are stored with `useState` inside `FavoritesProvider`
+(`src/context/FavoritesContext.js`) and shared across Explore, Detail,
+Favorites and Home through the `useFavorites` hook.
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## AppState
+`src/app/_layout.js` registers an `AppState` change listener and remembers the
+previous state with `useRef`. When the state goes from `inactive` or `background`
+to `active`, it logs the event and shows a "Welcome back" banner
+(`src/components/WelcomeBackBanner.js`).
 
-## Get a fresh project
+## Local notifications: how I researched and implemented it
+Here is a clean, natural replacement you can paste directly into your `README.md`:
 
-When you're ready, run:
+> I reviewed the official Expo `expo-notifications` documentation to understand how local alerts work across Android and iOS. From the docs, I learned that runtime permissions must be requested using `requestPermissionsAsync()` (along with creating an Android notification channel) before sending alerts, and that a notification handler (`setNotificationHandler`) is required so banners appear even when the app is open in the foreground. To implement this in `src/utils/notifications.js`, I used `scheduleNotificationAsync` with `trigger: null` to fire an instant confirmation whenever a trail is favorited, and a time-interval trigger (`seconds: 10`) for the scheduled reminder notification.
 
-```bash
-npm run reset-project
-```
+## Run locally
+git clone https://github.com/Pemindu-Prabodhitha/lanka-trails.git
+cd <lanka-trails>
+npm install
+npx expo start
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Scan the QR code with Expo Go. Notifications work best on a real phone.
 
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Hard-coded data
+`src/data/trails.js` contains 8 trails with district, difficulty, distance,
+duration, elevation, best season, image and description.
