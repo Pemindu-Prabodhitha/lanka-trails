@@ -32,6 +32,9 @@ export default function Home() {
 
   const featured = trails.slice(0, 5);
   const countOf = (level) => trails.filter((t) => t.difficulty === level).length;
+  // `t` changes every tap, so tapping the same card twice still re-applies the filter
+  const openExplore = (level = 'All') =>
+  router.push({ pathname: '/explore', params: { level, t: Date.now() } });
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -84,7 +87,7 @@ export default function Home() {
           <Pressable
             key={d.level}
             style={styles.levelCard}
-            onPress={() => router.push('/explore')}
+            onPress={() => openExplore(d.level)}
           >
             <View style={[styles.levelIcon, { backgroundColor: d.color }]}>
               <Ionicons name={d.icon} size={20} color="white" />
@@ -98,7 +101,7 @@ export default function Home() {
       {/* FEATURED CAROUSEL */}
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Featured trails</Text>
-        <Pressable onPress={() => router.push('/explore')}>
+        <Pressable onPress={() => openExplore('All')}>
           <Text style={styles.seeAll}>See all</Text>
         </Pressable>
       </View>

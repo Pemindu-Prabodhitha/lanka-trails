@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import TrailCard from '../../../components/TrailCard';
 import FilterModal from '../../../components/FilterModal';
 import { trails } from '../../../data/trails';
@@ -9,6 +9,14 @@ export default function ExploreList() {
   const router = useRouter();
   const [filter, setFilter] = useState('All');
   const [modalVisible, setModalVisible] = useState(false);
+  const { level, t } = useLocalSearchParams();
+
+// Apply the difficulty sent from the Home screen
+    useEffect(() => {
+    if (['All', 'Easy', 'Moderate', 'Hard'].includes(level)) {
+        setFilter(level);
+    }
+    }, [level, t]);
 
   const filteredTrails =
     filter === 'All' ? trails : trails.filter((t) => t.difficulty === filter);
