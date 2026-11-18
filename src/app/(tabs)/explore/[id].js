@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { trails } from '../../../data/trails';
 import { Ionicons } from '@expo/vector-icons';
 import { useFavorites } from '../../../context/FavoritesContext';
+import { scheduleTrailReminder } from '../../../utils/notifications';
 
 function Stat({ label, value }) {
   return (
@@ -64,6 +65,12 @@ export default function TrailDetail() {
                 {isFavorite(trail.id) ? 'Remove from favorites' : 'Add to favorites'}
             </Text>
         </Pressable>
+        <Pressable
+            onPress={() => scheduleTrailReminder(trail.name, 10)}
+            style={styles.reminderButton}
+            >
+            <Text style={styles.reminderText}>Remind me in 10 seconds</Text>
+        </Pressable>
         <Pressable onPress={() => router.back()} style={styles.button}>
           <Text style={styles.buttonText}>Back to trails</Text>
         </Pressable>
@@ -112,4 +119,13 @@ const styles = StyleSheet.create({
   borderColor: '#e53935',
 },
 favText: { marginLeft: 8, color: '#e53935', fontWeight: '600' },
+
+reminderButton: {
+  marginTop: 12,
+  padding: 14,
+  borderRadius: 10,
+  backgroundColor: '#eef5ee',
+  alignItems: 'center',
+},
+reminderText: { color: '#2e7d32', fontWeight: '600' },
 });

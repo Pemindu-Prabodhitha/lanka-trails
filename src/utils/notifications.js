@@ -43,3 +43,20 @@ export async function notifyFavorited(trailName) {
     console.log('Notification error:', error);
   }
 }
+// Scheduled reminder, fires after a delay
+export async function scheduleTrailReminder(trailName, seconds = 10) {
+  try {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Trail reminder 🥾',
+        body: `Time to plan your hike to ${trailName}!`,
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds,
+      },
+    });
+  } catch (error) {
+    console.log('Reminder error:', error);
+  }
+}
