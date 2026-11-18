@@ -1,4 +1,6 @@
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useFavorites } from '../context/FavoritesContext';
 
 const difficultyColors = {
   Easy: '#2e7d32',
@@ -7,12 +9,28 @@ const difficultyColors = {
 };
 
 export default function TrailCard({ trail, onPress }) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorited = isFavorite(trail.id);
+
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [styles.card, pressed && styles.pressed]}
     >
-      <Image source={{ uri: trail.image }} style={styles.image} />
+      <View>
+        <Image source={{ uri: trail.image }} style={styles.image} />
+        <Pressable
+          onPress={() => toggleFavorite(trail.id)}
+          style={styles.heart}
+          hitSlop={8}
+        >
+          <Ionicons
+            name={favorited ? 'heart' : 'heart-outline'}
+            size={22}
+            color={favorited ? '#e53935' : '#333'}
+          />
+        </Pressable>
+      </View>
       <View style={styles.info}>
         <Text style={styles.name}>{trail.name}</Text>
         <Text style={styles.district}>{trail.district}</Text>
@@ -46,6 +64,14 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: 0.85 },
   image: { width: '100%', height: 160, backgroundColor: '#ddd' },
+  heart: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderRadius: 20,
+    padding: 8,
+  },
   info: { padding: 12 },
   name: { fontSize: 18, fontWeight: '700' },
   district: { color: '#666', marginTop: 2 },

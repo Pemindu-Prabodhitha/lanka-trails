@@ -1,6 +1,8 @@
 import { View, Text, Image, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { trails } from '../../../data/trails';
+import { Ionicons } from '@expo/vector-icons';
+import { useFavorites } from '../../../context/FavoritesContext';
 
 function Stat({ label, value }) {
   return (
@@ -15,6 +17,7 @@ export default function TrailDetail() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const trail = trails.find((t) => t.id === id);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   if (!trail) {
     return (
@@ -48,6 +51,19 @@ export default function TrailDetail() {
         <Text style={styles.sectionTitle}>About this trail</Text>
         <Text style={styles.text}>{trail.description}</Text>
 
+        <Pressable
+            onPress={() => toggleFavorite(trail.id)}
+            style={styles.favButton}
+            >
+            <Ionicons
+                name={isFavorite(trail.id) ? 'heart' : 'heart-outline'}
+                size={20}
+                color="#e53935"
+            />
+            <Text style={styles.favText}>
+                {isFavorite(trail.id) ? 'Remove from favorites' : 'Add to favorites'}
+            </Text>
+        </Pressable>
         <Pressable onPress={() => router.back()} style={styles.button}>
           <Text style={styles.buttonText}>Back to trails</Text>
         </Pressable>
@@ -84,4 +100,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: { color: 'white', fontWeight: '600' },
+  
+  favButton: {
+  marginTop: 20,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 14,
+  borderRadius: 10,
+  borderWidth: 1,
+  borderColor: '#e53935',
+},
+favText: { marginLeft: 8, color: '#e53935', fontWeight: '600' },
 });
