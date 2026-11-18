@@ -54,13 +54,12 @@ to `active`, it logs the event and shows a "Welcome back" banner
 (`src/components/WelcomeBackBanner.js`).
 
 ## Local notifications: how I researched and implemented it
-Here is a clean, natural replacement you can paste directly into your `README.md`:
 
 > I reviewed the official Expo `expo-notifications` documentation to understand how local alerts work across Android and iOS. From the docs, I learned that runtime permissions must be requested using `requestPermissionsAsync()` (along with creating an Android notification channel) before sending alerts, and that a notification handler (`setNotificationHandler`) is required so banners appear even when the app is open in the foreground. To implement this in `src/utils/notifications.js`, I used `scheduleNotificationAsync` with `trigger: null` to fire an instant confirmation whenever a trail is favorited, and a time-interval trigger (`seconds: 10`) for the scheduled reminder notification.
 
 ## Run locally
 git clone https://github.com/Pemindu-Prabodhitha/lanka-trails.git
-cd <lanka-trails>
+cd lanka-trails
 npm install
 npx expo start
 
