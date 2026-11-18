@@ -9,7 +9,7 @@ export const trails = [
     duration: '5-6 hrs',
     elevationM: 2243,
     bestSeason: 'Dec - Apr',
-    image: 'https://share.google/jVpeu994CQ2w3i7yN',
+    image: require('../../assets/trails/adams-peak.jpg'),
     description:
       'A sacred pilgrimage climb of about 5,500 steps, best done at night to reach the summit for sunrise.',
   },
@@ -22,7 +22,7 @@ export const trails = [
     duration: '4 hrs',
     elevationM: 1041,
     bestSeason: 'Jan - Mar',
-    image: 'https://share.google/KjRAgUGk06k5LdQsG',
+    image: require('../../assets/trails/ella-rock.jpg'),
     description:
       'A trail that follows the railway line and winds through tea estates to wide views over the Ella gap.',
   },
@@ -35,7 +35,7 @@ export const trails = [
     duration: '1.5 hrs',
     elevationM: 1141,
     bestSeason: 'Jan - Mar',
-    image: 'https://share.google/Julqfp4GBNzJsdpur',
+    image: require('../../assets/trails/little-adams-peak.jpg'),
     description:
       'A short, gentle walk through tea plantations, ideal for beginners and sunrise views.',
   },
@@ -48,7 +48,7 @@ export const trails = [
     duration: '3-4 hrs',
     elevationM: 2100,
     bestSeason: 'Jan - Mar',
-    image: 'https://share.google/JKZD1VcBtUPfQ8Hht',
+    image: require('../../assets/trails/horton-plains.jpg'),
     description:
       'A loop across cloud forest and grassland to a sheer cliff drop. Start early, before mist covers the view.',
   },
@@ -61,7 +61,7 @@ export const trails = [
     duration: '1.5 hrs',
     elevationM: 200,
     bestSeason: 'Jan - Apr',
-    image: 'https://share.google/BD5oFQVbS8HBy6OaS',
+    image: require('../../assets/trails/pidurangala.jpg'),
     description:
       'A short but steep scramble that rewards you with the best view of Sigiriya Rock.',
   },
@@ -74,7 +74,7 @@ export const trails = [
     duration: '7 hrs',
     elevationM: 1863,
     bestSeason: 'Jan - Apr',
-    image: 'https://share.google/H2IHFTDTKjAyVsarg',
+    image: require('../../assets/trails/knuckles.jpg'),
     description:
       'A remote forest trek through villages and cloud forest, best done with a local guide.',
   },
@@ -87,7 +87,7 @@ export const trails = [
     duration: '2.5 hrs',
     elevationM: 1100,
     bestSeason: 'Dec - Mar',
-    image: 'https://share.google/ED374ybV8o83Vv7h9',
+    image: require('../../assets/trails/hanthana.jpg'),
     description:
       'A friendly hike close to Kandy with grassy ridges and views over the city and Knuckles.',
   },
@@ -100,7 +100,7 @@ export const trails = [
     duration: '6 hrs',
     elevationM: 2036,
     bestSeason: 'Jan - Apr',
-    image: 'https://share.google/cn8ULKpB1B5TuMdDj',
+    image: require('../../assets/trails/namunukula.jpg'),
     description:
       'The highest peak in the Namunukula range, a long climb through pine forest and open grassland.',
   },
