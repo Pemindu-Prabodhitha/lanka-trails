@@ -33,7 +33,7 @@ export default function TrailDetail() {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={{ uri: trail.image }} style={styles.image} />
+      <Image source={trail.image} style={styles.image} />
       <View style={styles.body}>
         <Text style={styles.name}>{trail.name}</Text>
         <Text style={styles.district}>

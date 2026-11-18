@@ -18,7 +18,7 @@ export default function TrailCard({ trail, onPress }) {
       style={({ pressed }) => [styles.card, pressed && styles.pressed]}
     >
       <View>
-        <Image source={{ uri: trail.image }} style={styles.image} />
+        <Image source={trail.image} style={styles.image} />
         <Pressable
           onPress={() => toggleFavorite(trail.id)}
           style={styles.heart}
